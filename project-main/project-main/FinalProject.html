@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>E-Commerce Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif
+    }
+
+    body {
+      background: #f5f5f5
+    }
+
+    header {
+      background: #e53935;
+      color: #fff;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    header button {
+      padding: 6px 14px;
+      border: none;
+      background: #fff;
+      color: #e53935;
+      cursor: pointer;
+      border-radius: 4px
+    }
+
+    .hero {
+      background: #000;
+      color: #fff;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column
+    }
+
+    .hero button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: #e53935;
+      color: #fff;
+      cursor: pointer
+    }
+
+    .section {
+      padding: 40px
+    }
+
+    .title {
+      margin-bottom: 20px;
+      font-weight: bold
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px
+    }
+
+    .card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center
+    }
+
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: contain
+    }
+
+    .card button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      border: none;
+      background: #e53935;
+      color: #fff;
+      cursor: pointer
+    }
+
+    .promo {
+      background: #ffd180;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .timer {
+      font-size: 20px;
+      font-weight: bold
+    }
+
+    footer {
+      background: #222;
+      color: #fff;
+      padding: 30px
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .top-banner {
+      background: #e04848;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .top-banner span {
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: black;
+      font-size: 14px;
+    }
+
+    .shop-btn {
+      background: #e04848;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .right input {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-btn {
+      background: #e04848;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="siteHeader"></div>
+
+
+  <section class="hero">
+    <h1>iPhone 14 Pro</h1>
+    <p>Best performance & camera</p>
+    <button onclick="alert('Shop Now clicked')">Shop Now</button>
+  </section>
+
+  <section class="section">
+    <div class="title">Shop Collection</div>
+    <div class="products">
+      <div class="card">
+        <img
+          src="https://th.bing.com/th/id/OIP.bqmgaODIBDwXEGacKkXrGQHaHa?o=7&cb=ucfimg2&rm=3&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>Headphone</p>
+        <button onclick="addToCart('Headphone')">Add to cart</button>
+      </div>
+      <div class="card">
+        <img
+          src="https://tse1.mm.bing.net/th/id/OIP.Sh0ME4v4Sow4BeNtZoeqygHaHa?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>Earbuds</p>
+        <button onclick="addToCart('Earbuds')">Add to cart</button>
+      </div>
+      <div class="card">
+        <img
+          src="https://tse2.mm.bing.net/th/id/OIP.mE4fs5JUA6b9Ew5wXBtmTAHaHa?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>Charger</p>
+        <button onclick="addToCart('Charger')">Add to cart</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo">
+    <div>
+      <h2>Hurry up! 40% OFF</h2>
+      <p>Limited time offer</p>
+    </div>
+    <div class="timer" id="timer">00:00:00</div>
+  </section>
+
+  <section class="section">
+    <div class="title">Popular Products</div>
+    <div class="products">
+      <div class="card">
+        <img
+          src="https://tse1.mm.bing.net/th/id/OIP.wwnRzdHrbsZFeSaSh8cBRgHaGE?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>iPad</p>
+        <button onclick="addToCart('iPad')">Add to cart</button>
+      </div>
+      <div class="card">
+        <img
+          src="https://tse3.mm.bing.net/th/id/OIP.HRXJMWazLIv-dlvl7VzloQHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>Macbook</p>
+        <button onclick="addToCart('Macbook')">Add to cart</button>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <section class="section" style="background:#fff">
+    <h2 style="text-align:center;color:#e53935">Feedback Corner</h2>
+    <div class="products">
+      <div class="card">
+        <p>"Great service and fast delivery!"</p>
+        <strong>- Emily Wilson</strong>
+        <button onclick="likeFeedback(this)">Like 0</button>
+      </div>
+      <div class="card" style="background:#ffecec">
+        <p>"Website is easy to use and products are quality."</p>
+        <strong>- Sarah Thompson</strong>
+        <button onclick="likeFeedback(this)">Like 0</button>
+      </div>
+      <div class="card">
+        <p>"Highly recommended! Will shop again."</p>
+        <strong>- Olivia Martinez</strong>
+        <button onclick="likeFeedback(this)">Like 0</button>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="title">Explore Our Products</div>
+    <div class="products">
+      <div class="card">
+        <img src="https://th.bing.com/th/id/R.3641176cd8265a8cc77131b6706e7496?rik=60J%2bFlPKHX45bA&pid=ImgRaw&r=0" />
+        <p>iPad Pro</p>
+        <button onclick="addToCart('iPad Pro')">Shop Now</button>
+      </div>
+      <div class="card">
+        <img
+          src="https://tse1.mm.bing.net/th/id/OIP.cQu1B2AaY3JaD6LlslevjAEsCo?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>Samsung Galaxy s25 ultra</p>
+        <button onclick="addToCart('Samsung Galaxy')">Shop Now</button>
+      </div>
+      <div class="card">
+        <img
+          src="https://tse3.mm.bing.net/th/id/OIP.O3lGwq8pF9SQZaJmXitxVAHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" />
+        <p>Macbook Pro</p>
+        <button onclick="addToCart('Macbook Pro')">Shop Now</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="siteFooter"></div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script>
+    let dark2 = false;
+    function toggleTheme() {
+      dark = !dark;
+      document.body.style.background = dark ? '#111' : '#f5f5f5';
+      document.body.style.color = dark ? '#fff' : '#000';
+    }
+
+    function addToCart(product) {
+      alert(product + ' carta əlavə olundu');
+    }
+
+    function likeFeedback(btn) {
+      let count = parseInt(btn.innerText.split(' ')[1]);
+      count++;
+      btn.innerText = 'Like ' + count;
+    }
+
+    let time2 = 5 * 60 * 60;
+    setInterval(() => {
+      let h = Math.floor(time / 3600);
+      let m = Math.floor((time % 3600) / 60);
+      let s = time % 60;
+      document.getElementById('timer').innerText =
+        `${h.toString().padStart(2, '0')}:
+      ${m.toString().padStart(2, '0')}:
+      ${s.toString().padStart(2, '0')}`;
+      time--;
+    }, 1000);
+  </script>
+
+  <script>
+
+    function shopNow() {
+      alert("Shop səhifəsinə keçid");
+    }
+
+    function goPage(page) {
+      alert(page + " səhifəsinə keçildi");
+    }
+
+
+    function login() {
+      window.location.href = "login.html";
+    }
+
+
+    function search(value) {
+      console.log("Axtarılan:", value);
+    }
+
+    let dark = false;
+    function toggleTheme() {
+      dark = !dark;
+      document.body.style.background = dark ? '#111' : '#f5f5f5';
+      document.body.style.color = dark ? '#fff' : '#000';
+    }
+
+    function addToCart(product) {
+      alert(product + ' carta əlavə olundu');
+    }
+
+
+    let time = 5 * 60 * 60;
+    setInterval(() => {
+      let h = Math.floor(time / 3600);
+      let m = Math.floor((time % 3600) / 60);
+      let s = time % 60;
+      document.getElementById('timer').innerText =
+        `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      time--;
+    }, 1000);
+  </script>
+  <script src="footer.js"></script>
+
+
+</body>
+
+</html>
+
+
+</body>
+
+</html>

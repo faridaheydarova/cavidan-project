@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #f6f7fb;
+    }
+
+
+    .account-hero {
+      background: linear-gradient(120deg, rgba(192, 57, 43, .12), rgba(0, 0, 0, 0));
+      border: 1px solid rgba(0, 0, 0, .06);
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+    }
+
+    .label {
+      width: 110px;
+      color: #6c757d;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="siteHeader"></div>
+
+  <main class="container py-4 py-md-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+          <div class="account-hero p-4">
+            <div class="d-flex align-items-center gap-3">
+
+            </div>
+          </div>
+
+          <div class="card-body p-4">
+            <div
+              class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3 mb-4">
+              <div class="d-flex align-items-center gap-3">
+                <img id="photo" class="avatar d-none" alt="Profile photo" />
+                <div>
+                  <div class="fw-bold fs-5" id="fullName">—</div>
+                  <div class="text-secondary" id="emailTop">—</div>
+                </div>
+              </div>
+
+              <div class="text-end">
+                <button class="btn btn-danger" onclick="editUser()">
+                  Edit Profile
+                </button>
+              </div>
+            </div>
+
+            <div id="photoError" class="alert alert-warning py-2 d-none mb-3">
+              Şəkil linki xətalıdır.
+            </div>
+
+            <ul class="list-group list-group-flush border rounded-3 overflow-hidden">
+              <li class="list-group-item d-flex align-items-center">
+                <div class="label">Name</div>
+                <div class="fw-semibold" id="name">—</div>
+              </li>
+              <li class="list-group-item d-flex align-items-center">
+                <div class="label">Surname</div>
+                <div class="fw-semibold" id="surname">—</div>
+              </li>
+              <li class="list-group-item d-flex align-items-center">
+                <div class="label">Email</div>
+                <div class="fw-semibold" id="email">—</div>
+              </li>
+              <li class="list-group-item d-flex align-items-center">
+                <div class="label">Username</div>
+                <div class="fw-semibold" id="username">—</div>
+              </li>
+            </ul>
+
+            <div class="d-flex gap-2 mt-4">
+              <a href="Shop.html" class="btn btn-outline-secondary w-100">Go to Shop</a>
+              <button class="btn btn-outline-danger w-100" onclick="logout()">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+
+  <script src="footer.js"></script>
+
+  <script>
+    function showUser() {
+      const data = localStorage.getItem("user");
+      if (!data) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const user = JSON.parse(data);
+
+      document.getElementById("name").innerText = user.firstName || "—";
+      document.getElementById("surname").innerText = user.lastName || "—";
+      document.getElementById("email").innerText = user.email || "—";
+      document.getElementById("username").innerText = user.username || "—";
+
+
+      document.getElementById("fullName").innerText =
+        `${user.firstName || ""} ${user.lastName || ""}`.trim() || "—";
+      document.getElementById("emailTop").innerText = user.email || "—";
+
+
+      const img = document.getElementById("photo");
+      const err = document.getElementById("photoError");
+
+      err.classList.add("d-none");
+      img.classList.add("d-none");
+
+      if (user.profileImg && user.profileImg.trim() !== "") {
+        img.src = user.profileImg.trim();
+
+        img.onload = () => {
+          img.classList.remove("d-none");
+        };
+
+        img.onerror = () => {
+          err.classList.remove("d-none");
+          img.classList.add("d-none");
+        };
+      }
+    }
+
+    function editUser() {
+      const data = localStorage.getItem("user");
+      const current = data ? JSON.parse(data) : {};
+
+      const firstName = prompt("New name:", current.firstName || "");
+      if (firstName === null) return;
+
+      const lastName = prompt("New surname:", current.lastName || "");
+      if (lastName === null) return;
+
+      const email = prompt("New email:", current.email || "");
+      if (email === null) return;
+
+      const username = prompt("New username:", current.username || "");
+      if (username === null) return;
+
+      const profileImg = prompt("New photo link (optional):", current.profileImg || "");
+      if (profileImg === null) return;
+
+      const updatedUser = {
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        username: username.trim(),
+        profileImg: profileImg.trim()
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      showUser();
+    }
+
+    function logout() {
+      localStorage.removeItem("user");
+      window.location.href = "login.html";
+    }
+
+    showUser();
+  </script>
+</body>
+
+</html>
