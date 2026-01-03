@@ -1,10 +1,15 @@
-async function loadLayout() {
-  document.getElementById("siteHeader").innerHTML =
-    await (await fetch("header.html")).text();
-
-  document.getElementById("siteFooter").innerHTML =
-    await (await fetch("footer.html")).text();
-  updateAuthButton();
+function loadLayout() {
+  fetch("header.html").then(res => res.text())
+    .then(headerHtml => {
+      document.getElementById("siteHeader").innerHTML = headerHtml;
+      return fetch("footer.html");
+    })
+    .then(res => res.text())
+    .then(footerHtml => {
+      document.getElementById("siteFooter").innerHTML = footerHtml;
+      updateAuthButton();
+    })
+    .catch(err => console.error(err));
 }
 
 loadLayout();
