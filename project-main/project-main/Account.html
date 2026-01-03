@@ -91,13 +91,6 @@
                 <div class="fw-semibold" id="username">—</div>
               </li>
             </ul>
-
-            <div class="d-flex gap-2 mt-4">
-              <a href="Shop.html" class="btn btn-outline-secondary w-100">Go to Shop</a>
-              <button class="btn btn-outline-danger w-100" onclick="logout()">
-                Logout
-              </button>
-            </div>
           </div>
         </div>
 
@@ -179,14 +172,9 @@
       localStorage.setItem("user", JSON.stringify(updatedUser));
       showUser();
     }
-
-    function logout() {
-      localStorage.removeItem("user");
-      window.location.href = "login.html";
-    }
-
     showUser();
   </script>
+
 </body>
 
 </html>
