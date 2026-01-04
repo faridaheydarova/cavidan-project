@@ -13,6 +13,7 @@ function loadLayout() {
 }
 
 loadLayout();
+initHeaderGuards(); 
 
 function updateAuthButton() {
   const btn = document.getElementById("authBtn");
@@ -38,5 +39,37 @@ function updateAuthButton() {
     btn.classList.add("btn-outline-danger");
     btn.href = "login.html";
     btn.onclick = null;
+  }
+}
+function initHeaderGuards() {
+  const user = localStorage.getItem("user");
+
+  const userProductsLink = document.getElementById("userProductsLink");
+  const createProductLink = document.getElementById("createProductLink");
+  if (userProductsLink) {
+    if (!user) {
+      userProductsLink.classList.add("disabled");
+      userProductsLink.setAttribute("aria-disabled", "true");
+      userProductsLink.href = "#";
+
+      userProductsLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        alert("Login olmamısınız! UserProducts üçün əvvəlcə giriş edin.");
+        window.location.href = "login.html";
+      });
+    } else {
+      userProductsLink.classList.remove("disabled");
+      userProductsLink.removeAttribute("aria-disabled");
+      userProductsLink.href = "userproducts.html";
+    }
+  }
+  if (createProductLink) {
+    createProductLink.addEventListener("click", (e) => {
+      if (!localStorage.getItem("user")) {
+        e.preventDefault();
+        alert("Login olmamısınız! Məhsul yaratmaq üçün əvvəlcə giriş edin.");
+        window.location.href = "login.html";
+      }
+    });
   }
 }

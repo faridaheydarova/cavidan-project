@@ -169,71 +169,91 @@
   </div>
 
   <div id="siteFooter"></div>
+
   <script src="footer.js"></script>
 
   <script>
-    const products = [
-      { name: "Hanes Cotton T-Shirt", price: 39, category: "clothing", stars: 4, img: "https://tse4.mm.bing.net/th/id/OIP.eZH16EoCjHedjEGdDW0PHQHaJ4?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" },
-      { name: "Nike Running Shoes", price: 89, category: "shoes", stars: 5, img: "https://tse1.mm.bing.net/th/id/OIP.3DbVW9K9IkEt545p2xXwzQHaHa?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" },
-      { name: "Samsonite Backpack", price: 79, category: "accessory", stars: 4, img: "https://cdn.mos.cms.futurecdn.net/Bpj4r5pz9AYioGo58BUVBT.jpg" },
-      { name: "Apple iPad Pro", price: 899, category: "tech", stars: 5, img: "https://th.bing.com/th/id/R.73cef35823138a24acd86ba674fd7cef?rik=vd9P20sPDUwDng&pid=ImgRaw&r=0" }
-    ];
-
-    let filtered = [...products];
-
+    const products = [];
+    const customProducts = JSON.parse(localStorage.getItem("customProducts")) || [];
+    const allProducts = [...customProducts, ...products];
+    let filtered = [...allProducts];
     function showProducts(list) {
       const box = document.getElementById("productList");
       box.innerHTML = "";
+
+      if (list.length === 0) {
+        box.innerHTML = `<div class="alert alert-info">No products found.</div>`;
+        return;
+      }
+
       list.forEach(p => {
+        const stars = Math.max(0, Math.min(5, Number(p.stars) || 0));
         box.innerHTML += `
         <div class="card">
-          <img src="${p.img}">
+          <img src="${p.img}" alt="${p.name}">
           <h4>${p.name}</h4>
-          <div class="price">$${p.price}</div>
-          <div class="stars">${"★".repeat(p.stars)}</div>
-          <button onclick="addToCart('${p.name}')">Add to cart</button>
+          <div class="price">$${Number(p.price) || 0}</div>
+          <div class="stars">${"★".repeat(stars)}</div>
+          <button onclick="addToCart('${escapeQuotes(p.name)}')">Add to cart</button>
         </div>
       `;
       });
     }
-
     showProducts(filtered);
-
     function filterCategory(cat) {
-      filtered = cat === "all" ? products : products.filter(p => p.category === cat);
+      filtered = (cat === "all")
+        ? [...allProducts]
+        : allProducts.filter(p => (p.category || "").toLowerCase() === cat);
+
       showProducts(filtered);
     }
-
     function searchProduct() {
-      let value = document.getElementById("search").value.toLowerCase();
-      showProducts(filtered.filter(p => p.name.toLowerCase().includes(value)));
-    }
+      const value = document.getElementById("search").value.toLowerCase();
+      const base = filtered.length ? filtered : allProducts;
 
+      showProducts(base.filter(p => (p.name || "").toLowerCase().includes(value)));
+    }
     function sortPrice(type) {
-      if (type === "low") filtered.sort((a, b) => a.price - b.price);
-      if (type === "high") filtered.sort((a, b) => b.price - a.price);
+      if (type === "low") filtered.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
+      if (type === "high") filtered.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0));
       showProducts(filtered);
     }
-
     function addToCart(productName) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const product = products.find(p => p.name === productName);
-      if (!product) return;
+      const product = allProducts.find(p => p.name === productName);
+      if (!product) {
+        alert("Məhsul tapılmadı!");
+        return;
+      }
       const existing = cart.find(item => item.name === productName);
+
       if (existing) {
         existing.quantity += 1;
       } else {
         cart.push({
           name: product.name,
-          price: product.price,
+          price: Number(product.price) || 0,
           img: product.img,
           quantity: 1
         });
       }
       localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
       alert(product.name + " səbətə əlavə olundu");
     }
+    function updateCartCount() {
+      const el = document.getElementById("cart-count");
+      if (!el) return;
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const total = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+      el.textContent = total;
+    }
+    updateCartCount();
+    function escapeQuotes(str) {
+      return String(str).replaceAll("'", "\\'");
+    }
   </script>
+
 
 </body>
 

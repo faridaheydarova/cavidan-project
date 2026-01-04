@@ -1,172 +1,209 @@
 <!DOCTYPE html>
 <html lang="az">
+
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel - Məhsullar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
 
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        .top-bar {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .top-bar a {
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+        }
 
 
-.top-bar {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-size: 14px;
-}
-.top-bar a { color: white; font-weight: bold; margin-left: 10px; }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box input {
+            background-color: #f5f5f5;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .login-btn {
+            background-color: #db4444;
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
 
-.navbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #ddd;
-}
-.logo { font-size: 24px; font-weight: bold; }
-.nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links a { text-decoration: none; color: black; font-weight: 500; }
+        .main-container {
+            width: 90%;
+            margin: 30px auto;
+        }
 
-.nav-actions { display: flex; align-items: center; gap: 15px; }
-.search-box input {
-    background-color: #f5f5f5;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-}
-.login-btn {
-    background-color: #db4444;
-    color: white;
-    border: none;
-    padding: 8px 25px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        .add-btn {
+            background-color: #2b7fff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
 
-/* Cədvəl sahəsi */
-.main-container { width: 90%; margin: 30px auto; }
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-.add-btn {
-    background-color: #2b7fff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
+        .product-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
 
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.product-table th { text-align: left; padding: 15px; border-bottom: 1px solid #eee; }
-.product-table td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .product-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
 
-.prod-img { width: 80px; border-radius: 4px; }
+        .prod-img {
+            width: 80px;
+            border-radius: 4px;
+        }
 
 
-.blue-btn { background-color: #2b7fff; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
-.red-btn { background-color: #db4444; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
+        .blue-btn {
+            background-color: #2b7fff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
 
-.container {
-    width: 90%;
-    margin: 50px auto;
-    font-family: sans-serif;
-}
+        .red-btn {
+            background-color: #db4444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-
-.add-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
-
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.product-table th, .product-table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee; 
-}
-
-.prod-img {
-    width: 80px;
-    height: auto;
-    border-radius: 5px;
-}
+        .container {
+            width: 90%;
+            margin: 50px auto;
+            font-family: sans-serif;
+        }
 
 
-.edit-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        .add-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
 
 
-.edit-btn:hover { background-color: #0056b3; }
-.delete-btn:hover { background-color: #a71d2a; }
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prod-img {
+            width: 80px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+
+        .edit-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn:hover {
+            background-color: #a71d2a;
+        }
     </style>
 </head>
+
 <body>
-
-    <!DOCTYPE html>
-<html lang="az">
-<head>
-    <meta charset="UTF-8">
-    <title>E-commerce Admin Paneli</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-
-    <div class="top-bar">
-        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! 
-        <a href="#">ShopNow</a>
-    </div>
-
-    <nav class="navbar">
-        <div class="logo">E-commerce</div>
-        <ul class="nav-links">
-            <li><a href="Home.html">Home</a></li>
-            <li><a href="Contact.html">Contact</a></li>
-            <li><a href="About.html">About</a></li>
-            <li><a href="signUp.html">Sign Up</a></li>
-            <li><a href="createProduct.html">createProduct</a></li>
-        </ul>
-        <div class="nav-actions">
-            <div class="search-box">
-                <input type="text" placeholder="What are you looking for?">
-            </div>
-            <button class="login-btn">log in</button>
-        </div>
-    </nav>
-
-
+    <div id="siteHeader"></div>
     <div class="container">
         <button class="add-btn">Yeni məhsul</button>
 
@@ -189,7 +226,8 @@
                     <td>Dell 2222</td>
                     <td>Dell XPS 13</td>
                     <td>Laptops</td>
-                    <td><img src="https://tse2.mm.bing.net/th/id/OIP.V0zHBzuvrdVukfC8DmNNNAHaEK?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Dell" class="prod-img"></td>
+                    <td><img src="https://tse2.mm.bing.net/th/id/OIP.V0zHBzuvrdVukfC8DmNNNAHaEK?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                            alt="Dell" class="prod-img"></td>
                     <td>11965656 $</td>
                     <td>5/5</td>
                     <td>
@@ -202,7 +240,8 @@
                     <td>123123</td>
                     <td>123123</td>
                     <td>123123</td>
-                    <td><img src="https://tse3.mm.bing.net/th/id/OIP.MntaG_AAoPPCZI2RYJsteAHaHd?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Telefon" class="prod-img"></td>
+                    <td><img src="https://tse3.mm.bing.net/th/id/OIP.MntaG_AAoPPCZI2RYJsteAHaHd?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                            alt="Telefon" class="prod-img"></td>
                     <td>12321 $</td>
                     <td>2/5</td>
                     <td>
@@ -213,86 +252,112 @@
             </tbody>
         </table>
     </div>
-<script>
-
-const deleteButtons = document.querySelectorAll('.delete-btn');
-
-deleteButtons.forEach(button => {
-    button.addEventListener('click', function() {
-  
-        let cavab = confirm("Bu məhsulu silmək istədiyinizə əminsiniz?");
-        
-        if (cavab) {
-            
-            this.parentElement.parentElement.remove();
-            alert("Məhsul siyahıdan silindi.");
+    <div id="siteFooter"></div>
+    <script src="footer.js"></script>
+    <script>
+        const currentUserRaw = localStorage.getItem("user");
+        if (!currentUserRaw) {
+            alert("Login olmamısınız! Bu səhifəyə giriş üçün əvvəlcə login edin.");
+            window.location.href = "login.html";
         }
-    });
-});
 
+        const currentUser = currentUserRaw ? JSON.parse(currentUserRaw) : null;
+        const myUsername = currentUser?.username || currentUser?.email || "";
+        const tbody = document.querySelector(".product-table tbody");
+        const addBtn = document.querySelector(".add-btn"); // "Yeni Məhsul əlavə et" düyməsi
+        function getCustomProducts() {
+            return JSON.parse(localStorage.getItem("customProducts")) || [];
+        }
 
-const addBtn = document.querySelector('.add-btn');
-const tableBody = document.querySelector('.product-table tbody');
+        function setCustomProducts(arr) {
+            localStorage.setItem("customProducts", JSON.stringify(arr));
+        }
+        function getMyProducts() {
+            const all = getCustomProducts();
+            return all.filter(p => (p.ownerUsername || "") === myUsername);
+        }
+        function renderMyProducts() {
+            if (!tbody) return;
 
+            const mine = getMyProducts();
+            tbody.innerHTML = "";
 
-addBtn.addEventListener('click', function() {
+            if (mine.length === 0) {
+                tbody.innerHTML = `
+        <tr>
+          <td colspan="8" style="text-align:center; padding:18px; color:#666;">
+            Sizin hələ məhsulunuz yoxdur.
+          </td>
+        </tr>
+      `;
+                return;
+            }
 
-    let brend = prompt("Brend adını daxil edin:");
-    let model = prompt("Model adını daxil edin:");
-    let qiymet = prompt("Qiyməti daxil edin:");
+            mine.forEach((p, idx) => {
+                const safeName = escapeHtml(p.name || "-");
+                const safeBrand = escapeHtml((p.brand || (p.name || "").split(" ")[0]) || "-");
+                const safeCat = escapeHtml(p.category || "-");
+                const safeImg = p.img || "https://via.placeholder.com/70";
+                const price = Number(p.price || 0);
+                const stars = Number(p.stars || 0);
+                const key = String(p.createdAt || "");
 
+                tbody.innerHTML += `
+        <tr>
+          <td>${idx + 1}</td>
+          <td>${safeBrand}</td>
+          <td>${safeName}</td>
+          <td>${safeCat}</td>
+          <td><img src="${safeImg}" class="prod-img" alt=""></td>
+          <td>${isFinite(price) ? price : 0} $</td>
+          <td>${isFinite(stars) ? stars : 0}/5</td>
+          <td>
+            <button class="delete-btn" onclick="deleteMyProduct('${key}')">Sil</button>
+          </td>
+        </tr>
+      `;
+            });
+        }
+        window.deleteMyProduct = function (createdAtKey) {
+            if (!createdAtKey) return;
+            const all = getCustomProducts();
+            const target = all.find(x => String(x.createdAt) === String(createdAtKey));
+            if (!target) return;
 
-    if (brend && model && qiymet) {
-        
+            if ((target.ownerUsername || "") !== myUsername) {
+                alert("Bu məhsulu silmək icazəniz yoxdur.");
+                return;
+            }
 
-        let yeniSetir = `
-            <tr>
-                <td>3</td> 
-                <td>${brend}</td>
-                <td>${model}</td>
-                <td>Yeni</td>
-                <td><img src="placeholder.jpg" class="prod-img"></td>
-                <td>${qiymet} $</td>
-                <td>0/5</td>
-                <td>
-                    <button class="edit-btn">Redaktə et</button>
-                    <button class="delete-btn" onclick="this.parentElement.parentElement.remove()">Sil</button>
-                </td>
-            </tr>
-        `;
+            const ok = confirm("Bu məhsulu silmək istəyirsiniz?");
+            if (!ok) return;
 
+            const updated = all.filter(x => String(x.createdAt) !== String(createdAtKey));
+            setCustomProducts(updated);
 
-        tableBody.innerHTML += yeniSetir;
-        
-        alert("Yeni məhsul uğurla əlavə edildi!");
-    } else {
-        alert("Məlumatları tam doldurmadınız!");
-    }
-});
+            renderMyProducts();
+        };
+        if (addBtn) {
+            addBtn.addEventListener("click", () => {
+                if (!localStorage.getItem("user")) {
+                    alert("Login olmamısınız! Məhsul yaratmaq üçün əvvəlcə login edin.");
+                    window.location.href = "login.html";
+                    return;
+                }
+                window.location.href = "createProduct.html";
+            });
+        }
+        function escapeHtml(str) {
+            return String(str)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+        renderMyProducts();
+    </script>
 
-document.getElementById('newProductBtn').addEventListener('click', function() {
-    let brand = prompt("Brend adını yazın:");
-    let price = prompt("Qiyməti yazın:");
-
-    if(brand && price) {
-        let table = document.getElementById('tableBody');
-        let newRow = table.insertRow();
-
-        newRow.innerHTML = `
-            <td>2</td>
-            <td>${brand}</td>
-            <td>Yeni Model</td>
-            <td>Tech</td>
-            <td><img src="https://via.placeholder.com/80" class="prod-img"></td>
-            <td>${price} $</td>
-            <td>0/5</td>
-            <td>
-                <button class="blue-btn">Редактировать</button>
-                <button class="red-btn" onclick="this.parentElement.parentElement.remove()">Удалить</button>
-            </td>
-        `;
-    }
-});
-</script>
 </body>
+
 </html>
